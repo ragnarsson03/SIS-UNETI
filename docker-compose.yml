@@ -1,0 +1,44 @@
+services:
+  # SERVICIO 1: EL CEREBRO (API Nest.js)
+  uneti_api:
+    build:
+      context: ./backend      # Docker entrará a la carpeta backend a buscar el código
+      dockerfile: Dockerfile
+    container_name: sis_uneti_backend
+    env_file:
+      - .env                  # Carga las variables desde la raíz
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_HOST=uneti_db
+      - DATABASE_PORT=5432
+      - DATABASE_USER=${DB_USER}
+      - DATABASE_PASSWORD=${DB_PASSWORD}
+      - DATABASE_NAME=${DB_NAME}
+    depends_on:
+      - uneti_db
+    networks:
+      - uneti_net
+
+  # SERVICIO 2: LA MEMORIA (PostgreSQL 16)
+  uneti_db:
+    image: postgres:16-alpine
+    container_name: sis_uneti_postgres
+    restart: always
+    env_file:
+      - .env                  # Crucial para que Postgres sepa qué usuario crear
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - uneti_data:/var/lib/postgresql/data
+    networks:
+      - uneti_net
+
+networks:
+  uneti_net:
+    driver: bridge
+
+volumes:
+  uneti_data:

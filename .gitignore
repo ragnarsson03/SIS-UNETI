@@ -1,24 +1,39 @@
-# Nestjs specific
-/dist
-/node_modules
-/build
-/tmp
+# --- SEGURIDAD CRÍTICA (JAMÁS SUBIR ESTO) ---
+.env
+.env.*
+!.env.example
+secrets.json
+*.pem
+*.key
 
-# Logs
-logs
+# --- DEPENDENCIAS Y COMPILADOS ---
+node_modules/
+dist/
+build/
+/out
+.next/
+
+# --- LOGS Y CACHÉ ---
 *.log
 npm-debug.log*
-pnpm-debug.log*
 yarn-debug.log*
-yarn-error.log*
-lerna-debug.log*
+pnpm-debug.log*
+.npm
+.eslintcache
 
-# dotenv environment variable files
-.env
-.env.development
-.env.test
-.env.production
+# --- DOCKER ---
+.docker/
+# No ignoramos docker-compose.yml ni Dockerfile porque son la estructura
 
-# temp directory
-.temp
-.tmp
+# --- SISTEMA Y EDITORES ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# --- PRUEBAS Y COBERTURA ---
+/coverage
+/test-results
+*.lcov
