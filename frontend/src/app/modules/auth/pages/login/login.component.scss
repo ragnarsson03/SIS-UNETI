@@ -1,0 +1,311 @@
+@use 'sass:color';
+
+// Variables Institucionales
+$primary: #003366; // Azul profundo
+$secondary: #00a8cc; // Cian
+$white: #ffffff;
+$text-dark: #1e293b;
+$text-light: #64748b;
+$bg-light: #f8fafc;
+$bg-glass: rgba(255, 255, 255, 0.9);
+$shadow-soft: 0 10px 25px rgba(0, 0, 0, 0.05);
+$shadow-strong: 0 20px 40px rgba(0, 51, 102, 0.15);
+
+.login-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  background-color: $bg-light;
+  font-family: 'Lexend', sans-serif;
+  overflow: hidden;
+
+  // Lado Izquierdo: Banner
+  .banner {
+    display: none; // Oculto en móvil
+    flex: 1;
+    position: relative;
+    background: linear-gradient(135deg, $primary 0%, $secondary 100%);
+    color: $white;
+    padding: 3rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    @media (min-width: 1024px) {
+      display: flex;
+    }
+
+    .banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.1) 100%);
+    }
+
+    .banner-content {
+      position: relative;
+      z-index: 2;
+      max-width: 500px;
+
+      .logo-wrapper {
+        width: 120px;
+        height: 120px;
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto 2rem;
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: $shadow-soft;
+
+        .logo-icon {
+          font-size: 4rem;
+          color: $white;
+        }
+      }
+
+      .welcome-title {
+        font-size: 3rem;
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 1.5rem;
+        letter-spacing: -1px;
+      }
+
+      .welcome-subtitle {
+        font-size: 1.25rem;
+        font-weight: 300;
+        opacity: 0.9;
+        line-height: 1.6;
+      }
+    }
+
+    .banner-footer {
+      position: absolute;
+      bottom: 2rem;
+      font-size: 0.875rem;
+      opacity: 0.6;
+    }
+  }
+
+  // Lado Derecho: Formulario
+  .login-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    position: relative;
+
+    .mobile-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 2rem;
+
+      @media (min-width: 1024px) {
+        display: none;
+      }
+
+      .mobile-logo {
+        width: 64px;
+        height: 64px;
+        background: $primary;
+        border-radius: 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: $white;
+        margin-bottom: 0.5rem;
+        box-shadow: $shadow-soft;
+
+        span {
+          font-size: 2rem;
+        }
+      }
+
+      h2 {
+        font-weight: 700;
+        color: $primary;
+      }
+    }
+
+    .login-card {
+      width: 100%;
+      max-width: 450px;
+      background: $bg-glass;
+      backdrop-filter: blur(10px);
+      padding: 2.5rem;
+      border-radius: 20px;
+      box-shadow: $shadow-strong;
+      border: 1px solid $white;
+
+      .card-header {
+        text-align: center;
+        margin-bottom: 2.5rem;
+
+        h1 {
+          font-size: 2rem;
+          font-weight: 700;
+          color: $text-dark;
+          margin-bottom: 0.5rem;
+        }
+
+        p {
+          color: $text-light;
+          font-size: 1rem;
+        }
+      }
+
+      .login-form {
+        .form-group {
+          margin-bottom: 1.5rem;
+
+          label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: $text-dark;
+            margin-bottom: 0.5rem;
+          }
+
+          .input-group {
+            position: relative;
+            display: flex;
+            align-items: center;
+
+            input {
+              width: 100%;
+              height: 54px;
+              padding: 0 3.5rem 0 1rem; // Espacio para el icono a la derecha
+              border: 1px solid #e2e8f0;
+              border-radius: 12px;
+              background-color: $white;
+              font-size: 1rem;
+              transition: all 0.3s ease;
+
+              &:focus {
+                outline: none;
+                border-color: $primary;
+                box-shadow: 0 0 0 4px rgba($primary, 0.1);
+              }
+            }
+
+            .input-icon,
+            .password-toggle {
+              position: absolute;
+              right: 1rem;
+              color: $text-light;
+              user-select: none;
+            }
+
+            .password-toggle {
+              background: none;
+              border: none;
+              cursor: pointer;
+              padding: 0;
+              display: flex;
+              align-items: center;
+              transition: color 0.2s;
+
+              &:hover {
+                color: $primary;
+              }
+            }
+          }
+        }
+
+        .form-actions {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 2rem;
+
+          .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: $text-light;
+            cursor: pointer;
+
+            input {
+              display: none;
+            }
+
+            .checkbox-custom {
+              width: 18px;
+              height: 18px;
+              border: 2px solid #e2e8f0;
+              border-radius: 4px;
+              position: relative;
+              transition: all 0.2s;
+            }
+
+            input:checked+.checkbox-custom {
+              background-color: $primary;
+              border-color: $primary;
+
+              &::after {
+                content: 'done';
+                font-family: 'Material Symbols Outlined';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 14px;
+                color: $white;
+              }
+            }
+          }
+
+          .forgot-link {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: $primary;
+            text-decoration: none;
+
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+
+        .btn-login {
+          width: 100%;
+          height: 56px;
+          background: $primary;
+          color: $white;
+          border: none;
+          border-radius: 12px;
+          font-size: 1.1rem;
+          font-weight: 700;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 0.75rem;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          box-shadow: 0 4px 15px rgba($primary, 0.3);
+
+          &:hover {
+            background: color.scale($primary, $lightness: 5%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba($primary, 0.4);
+          }
+
+          &:active {
+            transform: translateY(0);
+          }
+
+          .material-symbols-outlined {
+            font-size: 1.25rem;
+          }
+        }
+      }
+    }
+  }
+}
